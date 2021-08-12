@@ -6,25 +6,24 @@ public class GamblingSimulator {
 	
 	public static void main(String[] args) {
 		int Stake = EveryDayStake;
+
 		
-		while (Stake>50 && Stake<150) {
+		for(int i=0; i<=20; i++) {
+			
 			int rand = (int)Math.floor(Math.random()*10) % 2;
 			if (rand==bet) {
 				Stake = Stake + 1;
-				System.out.println("You Win");
 			}
 			else {
 				Stake = Stake - 1;
-				System.out.println("You Lose");
-			}	
+			}
+			System.out.println(Stake);
 		}
-		if(Stake==50){
-			System.out.println("Player resigned due to loosing "+Stake);
+		if(Stake<EveryDayStake){
+			System.out.println("After 20 days Player lost by "+(EveryDayStake - Stake)+" rupees ");
 		}
 		else {
-		System.out.println("Player resigned due to winning " +Stake);
+			System.out.println("After 20 days Player won by " +(Stake - EveryDayStake)+" rupees ");
 		}
-
 	}
-
 }
