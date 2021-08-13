@@ -1,5 +1,7 @@
 package com.bridgelabz.gambling;
 
+import java.util.Random;
+
 public class GamblingSimulator {
 	public static final int EveryDayStake = 100;
 	public static final int bet = 1;
@@ -7,33 +9,46 @@ public class GamblingSimulator {
 	public static void main(String[] args) {
 		int Stake = EveryDayStake;
 		int month = 1;
-
+		int day = 1;
+		int UnluckyDay = 1;
+		int LuckyDay = 1;
+		int UnluckyMonth= 1;
+		int LuckyMonth = 1;
+		int LuckyDayMoney = EveryDayStake;
+		int UnluckyDayMoney = EveryDayStake;
 
 		while (month<=12) {
-			int day = 1;
-			System.out.println("Month " +month);
-			
+			day = 1;			
 			while(day<=30) {
 				Stake = EveryDayStake;
+				Random rand = new Random();
+	            int dailyGamePlayed = rand.nextInt(10);
+	            
+				for (int i = 0; i < dailyGamePlayed; i++) {
 				
-				int rand = (int)Math.floor(Math.random()*10) % 2;
-				if (rand==bet) {
-					Stake = Stake + 1;		
-				}
-				else {
-					Stake = Stake - 1;					
+					int randcheck = (int)Math.floor(Math.random()*10) % 2;
+					if (randcheck==bet) 
+						Stake = Stake + 1;		
+					else 
+						Stake = Stake - 1;
 				}
 					
-				if(Stake<EveryDayStake){
-					System.out.println("Day "+day+" lost by "+(EveryDayStake - Stake)+" rupees ");				
+				if(LuckyDayMoney<Stake){
+					LuckyDay = day;
+					LuckyMonth = month;
+					LuckyDayMoney = Stake;
 				}
-				else {
-					System.out.println("Day "+day+" won by " +(Stake - EveryDayStake)+" rupees ");				
+				
+				if(UnluckyDayMoney>Stake) {
+					UnluckyDay = day;
+					UnluckyMonth = month;
+					UnluckyDayMoney = Stake;
 				}
 				day++;
 			}
 			month++;
-			System.out.println();
 		}
+		System.out.println("Lucky Day "+LuckyDay+" in the month "+LuckyMonth+" Maximum money won is "+(LuckyDayMoney - Stake)+" rupees ");
+		System.out.println("Unlucky Day "+UnluckyDay+" in the month "+UnluckyMonth+" Maximum  money lost is " +(Stake - UnluckyDayMoney)+" rupees ");		
 	}
 }
